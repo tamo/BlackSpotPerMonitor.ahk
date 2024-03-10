@@ -1,0 +1,40 @@
+name: ahk2exe
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Ahk2Exe (32bit)
+      uses: tamo/action-Ahk2Exe@main
+      with:
+        src: BlackSpotPerMonitor.ahk
+
+    - run: ls BlackSpotPerMonitor.exe
+
+    - name: Ahk2Exe (64bit)
+      uses: tamo/action-Ahk2Exe@main
+      with:
+        src: BlackSpotPerMonitor.ahk
+        base: _ahktmp/AutoHotkey64.exe
+        opt: /out BlackSpotPerMonitor64.exe
+
+    - run: ls BlackSpotPerMonitor64.exe
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          BlackSpotPerMonitor.exe
+          BlackSpotPerMonitor64.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
