@@ -7,6 +7,11 @@
 ;@Ahk2Exe-SetDescription BlackSpotPerMonitor.ahk - workaround for video playback lags when subtitles are enabled
 ; https://www.reddit.com/r/netflix/comments/gir9kj/tip_found_a_fix_for_subtitles_causing_video/
 
+; needs UI Access for UWP apps
+;@Ahk2Exe-UpdateManifest 0, , , 1
+; the compiled file needs to be placed in a trusted path, e.g. "C:\Program Files"
+; and needs signing with a trusted cert (see .\uia\installcert.ps1)
+
 TraySetIcon("shell32.dll", -19)
 Persistent()
 windows := Array()

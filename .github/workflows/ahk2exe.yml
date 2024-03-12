@@ -18,7 +18,7 @@ jobs:
       with:
         src: BlackSpotPerMonitor.ahk
 
-    - run: ls BlackSpotPerMonitor.exe
+    - run: Get-ChildItem BlackSpotPerMonitor.exe
 
     - name: Ahk2Exe (64bit)
       uses: tamo/action-Ahk2Exe@main
@@ -27,7 +27,22 @@ jobs:
         base: _ahktmp/AutoHotkey64.exe
         opt: /out BlackSpotPerMonitor64.exe
 
-    - run: ls BlackSpotPerMonitor64.exe
+    - run: Get-ChildItem BlackSpotPerMonitor64.exe
+
+    - name: Sign
+      env:
+        CERTPASS: ${{secrets.CERTPASS}}
+        SIGNCERT: ${{secrets.SIGNCERT}}
+      run: |
+        $key = [System.Convert]::FromBase64String($env:SIGNCERT)
+        $cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::New($key, $env:CERTPASS)
+        Set-AuthenticodeSignature BlackSpotPerMonitor.exe -Certificate $cert
+        Set-AuthenticodeSignature BlackSpotPerMonitor64.exe -Certificate $cert
+
+    - run: Remove-Item uia/makecert.ps1,uia/sign.ps1
+
+    - name: Archive
+      run: Compress-Archive -Path uia -DestinationPath uia.zip
 
     - name: Release
       uses: softprops/action-gh-release@v1
@@ -36,5 +51,6 @@ jobs:
         files: |
           BlackSpotPerMonitor.exe
           BlackSpotPerMonitor64.exe
+          uia.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
