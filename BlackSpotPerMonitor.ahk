@@ -3,7 +3,7 @@
 #SingleInstance Force
 
 ;@Ahk2Exe-SetName        BlackSpotPerMonitor.ahk
-;@Ahk2Exe-SetVersion     0.1
+;@Ahk2Exe-SetVersion     0.2
 ;@Ahk2Exe-SetDescription BlackSpotPerMonitor.ahk - workaround for video playback lags when subtitles are enabled
 ; https://www.reddit.com/r/netflix/comments/gir9kj/tip_found_a_fix_for_subtitles_causing_video/
 
