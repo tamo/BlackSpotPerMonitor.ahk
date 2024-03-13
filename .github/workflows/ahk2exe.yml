@@ -44,6 +44,14 @@ jobs:
     - name: Archive
       run: Compress-Archive -Path uia -DestinationPath uia.zip
 
+    - name: Save artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        path: |
+          BlackSpotPerMonitor.exe
+          BlackSpotPerMonitor64.exe
+          uia.zip
+
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
