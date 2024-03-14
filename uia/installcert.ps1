@@ -1,6 +1,8 @@
 Param([String]$cert = "$PSScriptRoot\code_signing.crt")
 Import-Certificate -FilePath $cert -Cert Cert:\CurrentUser\Root
 
-# Use mmc.exe to remove the certs because Remove-Item cannot uninstall root certs
+# To remove the cert, run
+#   certutil.exe -delstore -user Root BlackSpotPerMonitor.ahk
+# because
 #   Get-ChildItem Cert:\CurrentUser\Root -DnsName BlackSpotPerMonitor.ahk | Remove-Item
-# will fail
+# will fail ("Remove-Item: The operation is on user root store and UI is not allowed.")
