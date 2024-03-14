@@ -31,8 +31,8 @@ jobs:
 
     - name: Sign
       env:
-        CERTPASS: ${{secrets.CERTPASS}}
-        SIGNCERT: ${{secrets.SIGNCERT}}
+        CERTPASS: ${{ secrets.CERTPASS }}
+        SIGNCERT: ${{ secrets.SIGNCERT }}
       run: |
         $key = [System.Convert]::FromBase64String($env:SIGNCERT)
         $cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::New($key, $env:CERTPASS)
