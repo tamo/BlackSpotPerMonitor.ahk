@@ -28,7 +28,7 @@ subscribe() {
     gobj.Show(Format("x{} y{} w{} h{} NoActivate", x, y, w := 1, h := 1))
 
     item := Format("{}: {}, {}", A_Index, x, y)
-    mons.Push({ gui: gobj, x: x, y: y, w: w, h: h, menu: item, enabled: true })
+    mons.Push({ gui: gobj, x: x, y: y, w: w, h: h, enabled: true })
     A_TrayMenu.Insert(String(A_Index) . "&", item, toggle) ; the same number
     A_TrayMenu.Check(item)
   }
