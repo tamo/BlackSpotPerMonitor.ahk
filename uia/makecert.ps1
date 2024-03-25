@@ -3,8 +3,7 @@ New-SelfSignedCertificate -CertStoreLocation Cert:\CurrentUser\My -DnsName $dnsn
 Export-Certificate      -Cert (Get-ChildItem Cert:\CurrentUser\My -DnsName $dnsname) -FilePath $cert
 
 # To uninstall the cert and the key, run
-#   Set-Location Cert:\CurrentUser\My
-#   Get-ChildItem -DnsName BlackSpotPerMonitor.ahk | Remove-Item -DeleteKey
+#   Remove-Item         -Path (Get-ChildItem Cert:\CurrentUser\My -DnsName BlackSpotPerMonitor.ahk).PSPath -DeleteKey
 #
 # Some key files will be kept if you forget to use -DeleteKey
 # https://www.pkisolutions.com/deleting-certificates-from-windows-certificate-store-programmatically-powershell-and-c/
