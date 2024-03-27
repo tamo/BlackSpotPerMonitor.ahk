@@ -13,21 +13,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Ahk2Exe (32bit)
+    - name: Ahk2Exe
       uses: tamo/action-Ahk2Exe@main
       with:
+        base: AutoHotkey32.exe,AutoHotkey64.exe
         src: BlackSpotPerMonitor.ahk
 
-    - run: Get-ChildItem BlackSpotPerMonitor.exe
-
-    - name: Ahk2Exe (64bit)
-      uses: tamo/action-Ahk2Exe@main
-      with:
-        src: BlackSpotPerMonitor.ahk
-        base: _ahktmp/AutoHotkey64.exe
-        opt: /out BlackSpotPerMonitor64.exe
-
-    - run: Get-ChildItem BlackSpotPerMonitor64.exe
+    - run: |
+        Get-ChildItem BlackSpotPerMonitor32.exe
+        Get-ChildItem BlackSpotPerMonitor64.exe
+        Move-Item BlackSpotPerMonitor32.exe BlackSpotPerMonitor.exe
 
     - name: Sign
       env:
